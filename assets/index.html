@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>La Barca | Chiclayo - Restaurante & Bar</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --gold:#D4A373;
+  --gold2:#C5A059;
+  --cream:#FAF7EF;
+  --dark:#101010;
+  --green:#1f3326;
+  --night:#0d0e10;
+}
+
+*{box-sizing:border-box}
+
+body{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  background:var(--cream);
+  color:var(--dark);
+  overflow-x:hidden;
+  transition:background-color 1s ease,color 1s ease;
+}
+
+h1,h2,h3,h4,.serif{font-family:'Playfair Display',serif}
+
+.day-mode{
+  background:var(--cream);
+  color:var(--dark);
+}
+
+.night-mode{
+  background:var(--night);
+  color:#f8f1e7;
+}
+
+.glass{
+  background:rgba(250,247,239,.72);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+}
+
+.night-mode .glass{
+  background:rgba(10,10,10,.62);
+  color:white;
+  border-color:rgba(255,255,255,.08);
+}
+
+.hero-video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:-2;
+}
+
+.hero-overlay{
+  position:absolute;
+  inset:0;
+  background:
+  radial-gradient(circle at center,rgba(212,163,115,.18),transparent 35%),
+  linear-gradient(to bottom,rgba(0,0,0,.25),rgba(0,0,0,.72));
+  z-index:-1;
+}
+
+.menu-card{
+  border:1px solid rgba(128,128,128,.18);
+  background:rgba(255,255,255,.45);
+  backdrop-filter:blur(14px);
+  transition:.45s ease;
+}
+
+.night-mode .menu-card{
+  background:rgba(255,255,255,.045);
+  border-color:rgba(255,255,255,.08);
+}
+
+.menu-card:hover{
+  transform:translateY(-8px);
+  border-color:rgba(212,163,115,.55);
+}
+
+.line{
+  width:0;
+  height:1px;
+  background:var(--gold);
+  transition:.6s ease;
+}
+
+.menu-card:hover .line{
+  width:100%;
+}
+
+.modal-overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:100;
+  background:rgba(0,0,0,.78);
+  backdrop-filter:blur(16px);
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.modal-overlay.active{
+  display:flex;
+}
+
+.modal-content{
+  animation:modalIn .55s ease;
+}
+
+@keyframes modalIn{
+  from{opacity:0;transform:translateY(25px) scale(.98)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+.form-input{
+  width:100%;
+  background:transparent;
+  border:0;
+  border-bottom:1px solid rgba(255,255,255,.25);
+  padding:14px 0;
+  outline:none;
+  color:white;
+  font-size:14px;
+}
+
+.form-input:focus{
+  border-bottom-color:var(--gold);
+}
+
+.form-input::placeholder{
+  color:rgba(255,255,255,.45);
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-size:10px;
+}
+
+select.form-input option{
+  color:#111;
+}
+
+.float-whatsapp{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  z-index:70;
+}
+
+.img-soft{
+  filter:contrast(1.02) saturate(.95);
+}
+
+@media(max-width:768px){
+  .hero-title{font-size:64px}
+}
+</style>
+</head>
+
+<body class="day-mode">
+
+<nav class="fixed top-0 left-0 w-full z-50 glass border-b border-black/5">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 py-4 flex justify-between items-center">
+    <a href="#inicio" class="serif text-2xl tracking-[.28em] font-semibold">
+      LA BARCA
+    </a>
+
+    <div class="hidden md:flex gap-8 text-[11px] uppercase tracking-[.25em] font-semibold">
+      <a href="#experiencia" class="hover:text-[#D4A373] transition">Experiencia</a>
+      <a href="#carta" class="hover:text-[#D4A373] transition">Carta</a>
+      <a href="#ambiente" class="hover:text-[#D4A373] transition">Ambiente</a>
+      <a href="#contacto" class="hover:text-[#D4A373] transition">Contacto</a>
+    </div>
+
+    <button onclick="toggleBooking(true)" class="bg-black text-white px-6 py-2.5 rounded-full text-[11px] uppercase tracking-[.25em] hover:bg-[#D4A373] transition duration-500">
+      Reservar
+    </button>
+  </div>
+</nav>
+
+<header id="inicio" class="relative min-h-screen flex items-center justify-center text-white text-center px-5 overflow-hidden">
+  <video autoplay muted loop playsinline preload="metadata" poster="terraza-dia.jpg" class="hero-video">
+    <source src="labarca-video.mp4" type="video/mp4">
+  </video>
+
+  <div class="hero-overlay"></div>
+
+  <div data-aos="fade-up" data-aos-duration="1400" class="max-w-4xl pt-20">
+    <span class="uppercase tracking-[.55em] text-[11px] mb-5 block text-white/80">
+      Chiclayo · Restaurante · Bar
+    </span>
+
+    <h1 class="hero-title serif text-7xl md:text-[130px] italic leading-none mb-7">
+      Sabor que navega
+    </h1>
+
+    <p class="max-w-xl mx-auto font-light text-white/80 leading-relaxed text-base md:text-lg">
+      Una experiencia cálida entre cocina, coctelería y noches memorables bajo un ambiente natural.
+    </p>
+
+    <div class="mt-9 flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="#carta" class="bg-white text-black px-7 py-3 rounded-full text-sm font-medium hover:bg-[#D4A373] hover:text-white transition">
+        Ver carta
+      </a>
+
+      <button onclick="toggleBooking(true)" class="border border-white/45 px-7 py-3 rounded-full text-sm hover:bg-white hover:text-black transition">
+        Reservar mesa
+      </button>
+    </div>
+  </div>
+
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/70 animate-bounce">
+    ↓
+  </div>
+</header>
+
+<section id="experiencia" class="py-28 px-5">
+  <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+
+    <div data-aos="fade-right">
+      <img src="terraza-dia.jpg" alt="Terraza La Barca" loading="lazy" class="img-soft w-full h-[520px] object-cover rounded-t-full shadow-2xl">
+    </div>
+
+    <div data-aos="fade-left">
+      <p class="uppercase tracking-[.35em] text-[11px] text-[#D4A373] mb-5">La experiencia</p>
+
+      <h2 class="serif text-5xl md:text-6xl leading-tight mb-8">
+        Tradición norteña, alma moderna.
+      </h2>
+
+      <p class="text-lg leading-relaxed opacity-70 mb-8">
+        La Barca reúne un ambiente natural, iluminación cálida, coctelería fresca y una carta pensada para compartir de día o disfrutar de noche.
+      </p>
+
+      <div class="grid grid-cols-2 gap-6">
+        <div>
+          <h4 class="serif text-3xl text-[#D4A373]">Bar</h4>
+          <p class="text-xs uppercase tracking-[.22em] opacity-50 mt-2">Cocktails & mocktails</p>
+        </div>
+
+        <div>
+          <h4 class="serif text-3xl text-[#D4A373]">Cocina</h4>
+          <p class="text-xs uppercase tracking-[.22em] opacity-50 mt-2">Platos para compartir</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="carta" class="py-24 px-5">
+  <div class="max-w-7xl mx-auto">
+
+    <div class="flex flex-col md:flex-row justify-between md:items-end gap-6 mb-14">
+      <div data-aos="fade-up">
+        <p class="uppercase tracking-[.35em] text-[11px] text-[#D4A373] mb-4">Carta</p>
+        <h2 id="menu-title" class="serif text-5xl md:text-6xl">Selección del día</h2>
+      </div>
+
+      <div class="flex flex-wrap gap-3" data-aos="fade-up">
+        <button onclick="setMenuView('auto')" class="filter-btn bg-black text-white px-5 py-2 rounded-full text-sm">Recomendado</button>
+        <button onclick="setMenuView('dia')" class="filter-btn border px-5 py-2 rounded-full text-sm">Día</button>
+        <button onclick="setMenuView('noche')" class="filter-btn border px-5 py-2 rounded-full text-sm">Noche</button>
+        <button onclick="setMenuView('tragos')" class="filter-btn border px-5 py-2 rounded-full text-sm">Tragos</button>
+      </div>
+    </div>
+
+    <div id="menu-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+  </div>
+</section>
+
+<section id="ambiente" class="py-24 px-5">
+  <div class="max-w-7xl mx-auto">
+
+    <div class="text-center max-w-2xl mx-auto mb-14" data-aos="fade-up">
+      <p class="uppercase tracking-[.35em] text-[11px] text-[#D4A373] mb-4">Ambiente</p>
+      <h2 class="serif text-5xl md:text-6xl mb-5">Cálido, natural y elegante.</h2>
+      <p class="opacity-70 leading-relaxed">Espacios pensados para fotos, citas, reuniones, cumpleaños y noches tranquilas con buena música.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-5">
+      <img src="salon-noche.jpg" alt="Salón de noche" loading="lazy" class="w-full h-[420px] object-cover rounded-[2rem] shadow-xl" data-aos="fade-up">
+      <img src="cocktail-menu-noche.jpg" alt="Cocktail La Barca" loading="lazy" class="w-full h-[420px] object-cover rounded-[2rem] shadow-xl md:translate-y-10" data-aos="fade-up" data-aos-delay="120">
+      <img src="terraza-dia-thumb.jpg" alt="Terraza de día" loading="lazy" class="w-full h-[420px] object-cover rounded-[2rem] shadow-xl" data-aos="fade-up" data-aos-delay="240">
+    </div>
+
+  </div>
+</section>
+
+<section class="py-24 px-5">
+  <div class="max-w-6xl mx-auto rounded-[2.5rem] overflow-hidden relative min-h-[420px] flex items-center">
+    <img src="salon-noche.png" alt="La Barca de noche" loading="lazy" class="absolute inset-0 w-full h-full object-cover">
+    <div class="absolute inset-0 bg-black/60"></div>
+
+    <div class="relative z-10 text-white p-8 md:p-16 max-w-2xl" data-aos="fade-right">
+      <p class="uppercase tracking-[.35em] text-[11px] text-[#D4A373] mb-5">Noche en La Barca</p>
+      <h2 class="serif text-5xl md:text-6xl mb-6">Luces suaves, cocktails y buena compañía.</h2>
+      <p class="text-white/75 leading-relaxed mb-8">La carta nocturna resalta tragos, piqueos y platos ideales para compartir.</p>
+      <button onclick="toggleBooking(true)" class="bg-white text-black px-7 py-3 rounded-full hover:bg-[#D4A373] hover:text-white transition">
+        Reservar ahora
+      </button>
+    </div>
+  </div>
+</section>
+
+<section id="contacto" class="py-24 px-5 bg-black text-white">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-12 text-center md:text-left">
+
+    <div data-aos="zoom-in">
+      <h4 class="text-[#D4A373] uppercase tracking-[.35em] text-xs mb-6">Ubicación</h4>
+      <p class="serif text-2xl">Chiclayo,<br>Lambayeque, Perú</p>
+    </div>
+
+    <div data-aos="zoom-in" data-aos-delay="150">
+      <h4 class="text-[#D4A373] uppercase tracking-[.35em] text-xs mb-6">Horarios</h4>
+      <p class="font-light text-white/75 text-sm">Martes a Jueves · 6:00 PM - 12:00 AM</p>
+      <p class="font-light text-white/75 text-sm">Viernes a Domingo · 6:00 PM - 2:00 AM</p>
+    </div>
+
+    <div data-aos="zoom-in" data-aos-delay="300">
+      <h4 class="text-[#D4A373] uppercase tracking-[.35em] text-xs mb-6">Contacto</h4>
+      <p class="serif text-2xl mb-5">+51 965 823 744</p>
+      <button onclick="toggleBooking(true)" class="border border-white/20 px-6 py-3 rounded-full hover:bg-white hover:text-black transition">
+        Reservar por WhatsApp
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<footer class="py-8 text-center text-[10px] uppercase tracking-[.4em] opacity-40">
+  © 2026 La Barca Chiclayo
+</footer>
+
+<a href="https://wa.me/51965823744" class="float-whatsapp bg-[#25D366] text-white w-14 h-14 rounded-full grid place-items-center shadow-2xl text-2xl">
+  ☎
+</a>
+
+<!-- MODAL ITEM -->
+<div id="item-modal" class="modal-overlay" onclick="closeItem()">
+  <div class="modal-content bg-black text-white max-w-3xl w-full rounded-[2rem] overflow-hidden" onclick="event.stopPropagation()">
+    <img id="item-img" src="" alt="" class="w-full h-[360px] object-cover opacity-85">
+    <div class="p-8 md:p-10">
+      <p id="item-tag" class="uppercase tracking-[.35em] text-[10px] text-[#D4A373] mb-4"></p>
+      <h3 id="item-name" class="serif text-4xl md:text-5xl mb-4"></h3>
+      <p id="item-desc" class="text-sm md:text-base font-light text-white/65 leading-relaxed"></p>
+      <div class="flex justify-between items-center mt-8">
+        <span id="item-price" class="serif text-3xl text-[#D4A373]"></span>
+        <button onclick="closeItem()" class="text-[10px] tracking-[.3em] uppercase border-b border-white/30 pb-1">
+          Volver
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL RESERVA -->
+<!-- MODAL RESERVA -->
+<div id="booking-modal" class="modal-overlay" onclick="toggleBooking(false)">
+  <div class="modal-content bg-[#101010]/95 border border-white/10 text-white max-w-lg w-full p-8 md:p-12 rounded-[2rem]" onclick="event.stopPropagation()">
+
+    <div class="text-center mb-10">
+      <p class="uppercase tracking-[.35em] text-[10px] text-[#D4A373] mb-3">La Barca</p>
+      <h3 class="serif italic text-4xl mb-2">Reserva de mesa</h3>
+      <p class="text-white/40 text-xs tracking-[.18em] uppercase">Confirmación por WhatsApp</p>
+    </div>
+
+    <div class="space-y-7">
+      <input id="res-name" type="text" class="form-input" placeholder="Nombre completo">
+
+      <input id="res-date" type="date" class="form-input" style="color-scheme:dark">
+
+      <select id="res-people" class="form-input">
+        <option value="" disabled selected>Número de invitados</option>
+        <option value="2 personas">2 personas</option>
+        <option value="3 personas">3 personas</option>
+        <option value="4 personas">4 personas</option>
+        <option value="5 personas">5 personas</option>
+        <option value="6 personas">6 personas</option>
+        <option value="7 o más personas">7 o más personas</option>
+      </select>
+
+      <select id="res-occasion" class="form-input">
+        <option value="" disabled selected>Ocasión</option>
+        <option value="Cena">Cena</option>
+        <option value="Cumpleaños">Cumpleaños</option>
+        <option value="Aniversario">Aniversario</option>
+        <option value="Reunión familiar">Reunión familiar</option>
+        <option value="Reunión con amigos">Reunión con amigos</option>
+        <option value="Cita">Cita</option>
+        <option value="Celebración especial">Celebración especial</option>
+      </select>
+
+      <button onclick="confirmReservation()" class="w-full bg-[#D4A373] text-black py-5 rounded-full text-[11px] tracking-[.35em] uppercase font-bold hover:bg-white transition-all duration-500">
+        Enviar solicitud
+      </button>
+
+      <p class="text-[10px] text-center text-white/35 leading-relaxed">
+        La reserva queda sujeta a confirmación por WhatsApp.
+      </p>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<script>
+AOS.init({
+  duration:900,
+  once:true,
+  offset:80
+});
+
+const carta = {
+  dia: [
+    {
+      nombre:"Cebiche de la Casa",
+      precio:"42",
+      tag:"Día · Marino",
+      desc:"Pesca fresca, leche de tigre intensa, ají limo y toque norteño.",
+      img:"terraza-dia-thumb.jpg"
+    },
+    {
+      nombre:"Arroz Marino",
+      precio:"45",
+      tag:"Día · Cocina",
+      desc:"Arroz cremoso con mariscos seleccionados y sazón de casa.",
+      img:"terraza-dia.jpg"
+    },
+    {
+      nombre:"Aguaymanto & Mandarina",
+      precio:"18",
+      tag:"Día · Sin alcohol",
+      desc:"Bebida cítrica, fresca y ligera con fruta tropical.",
+      img:"cocktail-menu.png"
+    },
+    {
+      nombre:"Maracuyá Fresh",
+      precio:"18",
+      tag:"Día · Sin alcohol",
+      desc:"Maracuyá natural, hielo y dulzor equilibrado.",
+      img:"cocktail-menu.png"
+    }
+  ],
+
+  noche: [
+    {
+      nombre:"Piqueo La Barca",
+      precio:"55",
+      tag:"Noche · Para compartir",
+      desc:"Selección de bocados calientes, salsas de casa y sabor intenso.",
+      img:"salon-noche.jpg"
+    },
+    {
+      nombre:"Parrilla de la Casa",
+      precio:"58",
+      tag:"Noche · Especial",
+      desc:"Cortes jugosos, guarnición dorada y salsa especial.",
+      img:"salon-noche.png"
+    },
+    {
+      nombre:"Pisco Sour Clásico",
+      precio:"25",
+      tag:"Noche · Cocktail",
+      desc:"Pisco, limón, jarabe y espuma suave en balance perfecto.",
+      img:"cocktail-menu-noche.jpg"
+    },
+    {
+      nombre:"Mojito Barca",
+      precio:"28",
+      tag:"Noche · Cocktail",
+      desc:"Hierbabuena fresca, limón, ron y burbujas suaves.",
+      img:"cocktail-menu-noche-thumb.jpg"
+    },
+    {
+      nombre:"Maracumango Premium",
+      precio:"32",
+      tag:"Noche · Signature",
+      desc:"Mango, maracuyá y destilado premium con acabado tropical.",
+      img:"cocktail-menu-noche.jpg"
+    }
+  ],
+
+  tragos: [
+    {
+      nombre:"Piña Colada",
+      precio:"28",
+      tag:"Cocktail · Tropical",
+      desc:"Piña, coco y ron en una mezcla cremosa y fresca.",
+      img:"cocktail-menu-noche-thumb.jpg"
+    },
+    {
+      nombre:"Chilcano",
+      precio:"24",
+      tag:"Cocktail · Peruano",
+      desc:"Pisco, ginger ale, limón y aroma cítrico.",
+      img:"cocktail-menu-noche.jpg"
+    },
+    {
+      nombre:"Daiquiri",
+      precio:"26",
+      tag:"Cocktail · Frutal",
+      desc:"Ron, limón y fruta en textura ligera y elegante.",
+      img:"cocktail-menu.png"
+    },
+    {
+      nombre:"Cuba Libre",
+      precio:"24",
+      tag:"Cocktail · Clásico",
+      desc:"Ron, cola, limón y hielo en versión nocturna.",
+      img:"cocktail-menu-noche.jpg"
+    }
+  ]
+};
+
+function isNight(){
+  const h = new Date().getHours();
+  return h >= 18 || h < 6;
+}
+
+function setMood(){
+  const night = isNight();
+
+  document.body.classList.toggle("night-mode", night);
+  document.body.classList.toggle("day-mode", !night);
+
+  renderMenu(night ? "noche" : "dia");
+  document.getElementById("menu-title").innerText = night ? "Selección de noche" : "Selección del día";
+}
+
+function setMenuView(type){
+  if(type === "auto"){
+    setMood();
+    return;
+  }
+
+  renderMenu(type);
+
+  const titles = {
+    dia:"Selección del día",
+    noche:"Selección de noche",
+    tragos:"Coctelería"
+  };
+
+  document.getElementById("menu-title").innerText = titles[type] || "Nuestra carta";
+}
+
+function escapeText(text){
+  return String(text).replace(/'/g,"&#39;").replace(/"/g,"&quot;");
+}
+
+function renderMenu(type){
+  const grid = document.getElementById("menu-grid");
+  const items = carta[type] || [];
+
+  grid.innerHTML = items.map((item, index) => `
+    <article
+      class="menu-card rounded-[2rem] p-6 cursor-pointer group"
+      data-aos="fade-up"
+      data-aos-delay="${index * 70}"
+      onclick="openItem('${escapeText(item.nombre)}','${escapeText(item.desc)}','${escapeText(item.img)}','${escapeText(item.precio)}','${escapeText(item.tag)}')"
+    >
+      <div class="flex justify-between items-start gap-5 mb-5">
+        <div>
+          <p class="uppercase tracking-[.3em] text-[10px] text-[#D4A373] mb-3">${item.tag}</p>
+          <h3 class="serif text-3xl italic group-hover:text-[#D4A373] transition">${item.nombre}</h3>
+        </div>
+        <span class="text-sm opacity-60 whitespace-nowrap">S/ ${item.precio}</span>
+      </div>
+
+      <p class="text-sm opacity-60 leading-relaxed">${item.desc}</p>
+      <div class="line mt-5"></div>
+    </article>
+  `).join("");
+
+  AOS.refresh();
+}
+
+function openItem(nombre, desc, img, precio, tag){
+  document.getElementById("item-name").innerText = nombre;
+  document.getElementById("item-desc").innerText = desc;
+  document.getElementById("item-img").src = img;
+  document.getElementById("item-price").innerText = `S/ ${precio}`;
+  document.getElementById("item-tag").innerText = tag;
+
+  document.getElementById("item-modal").classList.add("active");
+  document.body.style.overflow = "hidden";
+}
+
+function closeItem(){
+  document.getElementById("item-modal").classList.remove("active");
+  document.body.style.overflow = "";
+}
+
+function toggleBooking(show){
+  document.getElementById("booking-modal").classList.toggle("active", show);
+  document.body.style.overflow = show ? "hidden" : "";
+}
+function confirmReservation(){
+  const nombre = document.getElementById("res-name").value.trim();
+  const fecha = document.getElementById("res-date").value;
+  const personas = document.getElementById("res-people").value;
+  const ocasion = document.getElementById("res-occasion").value;
+
+  if(!nombre || !fecha || !personas || !ocasion){
+    alert("Completa nombre, fecha, invitados y ocasión.");
+    return;
+  }
+
+  const fechaBonita = new Date(fecha + "T00:00:00").toLocaleDateString("es-PE", {
+    weekday: "long",
+    day: "2-digit",
+    month: "long",
+    year: "numeric"
+  });
+
+const msg =
+`╭─ LA BARCA
+│ Reserva de mesa
+╰────────────
+
+Nombre
+${nombre}
+
+Fecha
+${fechaBonita}
+
+Invitados
+${personas}
+
+Ocasión
+${ocasion}
+
+Solicitud
+Deseo consultar disponibilidad para esta reserva.
+
+La Barca · Chiclayo`;
+
+  window.open(`https://wa.me/51982575315?text=${encodeURIComponent(msg)}`, "_blank");
+}
+
+setMood();
+setInterval(setMood, 60000);
+</script>
+
+</body>
+</html>
