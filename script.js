@@ -42,4 +42,13 @@ document.querySelectorAll("[data-page]").forEach(btn=>btn.addEventListener("clic
 document.querySelector(".mobile-menu").addEventListener("click",()=>document.body.classList.toggle("nav-open"));
 document.querySelectorAll("[data-dish-close]").forEach(button=>button.addEventListener("click",()=>closeModal("dish-modal")));
 document.querySelectorAll(".modal").forEach(modal=>modal.addEventListener("click",event=>{if(event.target===modal)closeModal(modal.id)}));
+function openHashPage(){
+const page=location.hash.replace("#","");
+if(page){
+showPage(page);
+}
+}
+
 render();
+openHashPage();
+window.addEventListener("hashchange",openHashPage);
