@@ -52,3 +52,14 @@ showPage(page);
 render();
 openHashPage();
 window.addEventListener("hashchange",openHashPage);
+
+function openMobileMenuOnHome(){
+const isMobile=window.innerWidth<=820;
+const hasHash=location.hash.length>0;
+
+if(isMobile&&!hasHash){
+document.body.classList.add("nav-open");
+}
+}
+
+openMobileMenuOnHome();
